@@ -1,0 +1,14 @@
+//adds two 16bit values
+CHIP Adder16bit
+{
+	IN x[16],y[16];
+	OUT z[16],of;
+
+	PARTS:
+	
+	MakePG(x=x,y=y,P=p,G=g); // finds the p,g's
+	MakePGI(p=p,g=g,pI=pI,gI=gI);//finds the higher level p,g's
+	FindCarry(p=p,g=g,pI=pI,gI=gI,out=c,carry16=carry16);//finds all the carry's
+	Overflow(a=carry16,b=c,out=of);//finds overflow , but it is not required for us
+	FindSum(c=c,p=p,s=z); //finds all the sum bits
+}

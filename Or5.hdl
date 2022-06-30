@@ -1,0 +1,10 @@
+//or gate with 5 inputs
+CHIP Or5
+{
+	IN a,b,c,d,e;
+	OUT out;
+	PARTS:
+
+	Or4(a=a,b=b,c=c,d=d,out=abcd);
+	Or(a=abcd,b=e,out=out);
+}

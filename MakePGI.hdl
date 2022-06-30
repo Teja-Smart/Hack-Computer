@@ -1,0 +1,31 @@
+//finds the higher order p,g's
+CHIP MakePGI
+{
+	IN p[16],g[16];
+	OUT pI[4],gI[4];
+
+	PARTS:
+	And4(a=p[0],b=p[1],c=p[2],d=p[3],out=pI[0]);
+	And4(a=g[0],b=p[1],c=p[2],d=p[3],out=p3p2p1g0);
+	And3(a=g[1],b=p[2],c=p[3],out=p3p2g1);
+	And(a=p[3],b=g[2],out=p3g2);
+	Or4(a=p3p2p1g0,b=p3p2g1,c=p3g2,d=g[3],out=gI[0]);
+
+	And4(a=p[4],b=p[5],c=p[6],d=p[7],out=pI[1]);
+	And4(a=g[4],b=p[5],c=p[6],d=p[7],out=p3p2p1g02);
+	And3(a=g[5],b=p[6],c=p[7],out=p3p2g12);
+	And(a=p[7],b=g[6],out=p3g22);
+	Or4(a=p3p2p1g02,b=p3p2g12,c=p3g22,d=g[7],out=gI[1]);
+
+	And4(a=p[8],b=p[9],c=p[10],d=p[11],out=pI[2]);
+	And4(a=g[8],b=p[9],c=p[10],d=p[11],out=p3p2p1g03);
+	And3(a=g[9],b=p[10],c=p[11],out=p3p2g13);
+	And(a=p[11],b=g[10],out=p3g23);
+	Or4(a=p3p2p1g03,b=p3p2g13,c=p3g23,d=g[11],out=gI[2]);
+
+	And4(a=p[12],b=p[13],c=p[14],d=p[15],out=pI[3]);
+	And4(a=g[12],b=p[13],c=p[14],d=p[15],out=p3p2p1g04);
+	And3(a=g[13],b=p[14],c=p[15],out=p3p2g14);
+	And(a=p[15],b=g[14],out=p3g24);
+	Or4(a=p3p2p1g04,b=p3p2g14,c=p3g24,d=g[15],out=gI[3]);
+}

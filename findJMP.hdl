@@ -1,0 +1,21 @@
+//HACK CPU does Jump or inc 
+// finds load, inc to be given to PC
+
+CHIP findJMP
+{
+    IN Zrout, Ngout, instruction[16];
+    OUT inc, load;
+
+	PARTS:
+		
+		And(a = Zrout, b = instruction[1], out = jeq);   // eqqual and jump if eqqual
+		And(a = Ngout, b = instruction[2], out = jlt);   // lt and jump if lt
+		Or(a = Zrout, b = Ngout, out = ZrNg); // x - y <= 0
+		Not(in = ZrNg, out = positive); // x > Y
+		And(a = positive, b = instruction[0], out = jgt);
+		Or(a = jeq,  b = jlt, out = jle);  // if any one jum happens we load
+		Or(a = jle, b = jgt, out = jumptoA);
+		And(a = instruction[15], b = jumptoA, out = lload);
+		Or(a = false, b = lload, out = load);
+		Not(in = lload, out = inc);
+}

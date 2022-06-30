@@ -1,0 +1,25 @@
+//Finds the Sum bits from the carry and p bits
+CHIP FindSum
+{
+	IN c[16],p[16];
+	OUT s[16];
+
+	PARTS:
+
+	Xor(a=c[0],b=p[0],out=s[0]);
+	Xor(a=c[1],b=p[1],out=s[1]);
+	Xor(a=c[2],b=p[2],out=s[2]);
+	Xor(a=c[3],b=p[3],out=s[3]);
+	Xor(a=c[4],b=p[4],out=s[4]);
+	Xor(a=c[5],b=p[5],out=s[5]);
+	Xor(a=c[6],b=p[6],out=s[6]);
+	Xor(a=c[7],b=p[7],out=s[7]);
+	Xor(a=c[8],b=p[8],out=s[8]);
+	Xor(a=c[9],b=p[9],out=s[9]);
+	Xor(a=c[10],b=p[10],out=s[10]);
+	Xor(a=c[11],b=p[11],out=s[11]);
+	Xor(a=c[12],b=p[12],out=s[12]);
+	Xor(a=c[13],b=p[13],out=s[13]);
+	Xor(a=c[14],b=p[14],out=s[14]);
+	Xor(a=c[15],b=p[15],out=s[15]);
+}

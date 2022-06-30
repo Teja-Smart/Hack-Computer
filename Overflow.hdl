@@ -1,0 +1,9 @@
+//finds overflow in the 16bit adder
+CHIP Overflow 
+{
+  	IN a, b[16];
+  	OUT out;
+
+	PARTS:
+  		Xor(a = b[15], b = a, out = out);
+}

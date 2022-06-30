@@ -1,0 +1,28 @@
+//HACK ALU
+CHIP HackALU
+{
+    IN X[16], Y[16] , c[6]; // c = {Zx, Nx, Zy, Ny, F, N0}
+    OUT out[16], Zr , Ng;
+
+	PARTS:
+		
+		//Finding value of X after Zero(c[5]) and negate(c[4]) operation and storing in P
+		SixteenbitMUX2to1(x = X, S = c[5], out = temp1); //The second input to the MUX(y) is by defualt 0
+		Compliment(a = temp1, b = c[4], out = P);
+		
+		//Finding value of Y after Zero(c[3]) and negate(c[2]) operation and storing in Q
+		SixteenbitMUX2to1(x = Y, S = c[3], out = temp2); //The second input to the MUX(y) is by defualt 0
+		Compliment(a = temp2, b = c[2], out = Q);
+		
+		And16bit(x = P, y = Q, out = PandQ); //16-bit And operation
+		Adder16bit(x = P, y = Q, z = PplusQ);//16-bit Adder
+		
+		
+		SixteenbitMUX2to1(x = PandQ, y = PplusQ, S = c[1], out = temp);//Selecting either And operation or Addition
+		Compliment(a = temp, b = c[0], out = ans); //Negating Final answer based on value of c[0](N0)
+		
+		AllZero(in = ans, out = Zr);
+		Sign(in = ans, out = Ng);
+		
+		Copy16Bit(in = ans , out = out);
+}

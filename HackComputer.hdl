@@ -1,0 +1,20 @@
+// main HDL file : Hack Computer
+
+CHIP HackComputer {
+
+    IN reset;
+
+    PARTS:
+    // reading instruction from ROM
+    ROM32K(address=pc, out=instruction);
+    
+    // exececute the instruction using Hack CPU
+    HackCPU(inM=memOut, instruction=instruction, reset=reset, outM=outM, 
+        writeM=writeM, addressM=addressM, pc=pc);
+    
+    //converts 15 bit addressM to 6bit address64
+    address64(addressM = addressM, address64 = address64);
+    
+    //reading and writing from RAM
+    RAM64(in=outM, load=writeM, address=address64, out=memOut);
+}

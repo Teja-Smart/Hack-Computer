@@ -1,0 +1,26 @@
+//cla chip , finds the carry from p,g's
+CHIP Cla
+{
+	IN c0,p0,p1,p2,p3,g0,g1,g2,g3;
+	OUT c1,c2,c3,c4;
+
+	PARTS:
+
+	And(a=p0,b=c0,out=p0c0);
+	Or(a=p0c0,b=g0,out=c1);
+
+	And3(a=p1,b=p0,c=c0,out=t1);
+	And(a=p1,b=g0,out=t2);
+	Or3(a=t1,b=t2,c=g1,out=c2);
+
+	And4(a=p2,b=p1,c=p0,d=c0,out=t3);
+	And3(a=p2,b=p1,c=g0,out=t4);
+	And(a=p2,b=g1,out=t5);
+	Or4(a=t3,b=t4,c=t5,d=g2,out=c3);
+
+	And5(a=p3,b=p2,c=p1,d=p0,e=c0,out=t6);
+	And4(a=p3,b=p2,c=p1,d=g0,out=t7);
+	And3(a=p3,b=p2,c=g1,out=t8);
+	And(a=p3,b=g2,out=t9);
+	Or5(a=t6,b=t7,c=t8,d=t9,e=g3,out=c4);
+}

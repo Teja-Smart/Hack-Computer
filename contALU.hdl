@@ -1,0 +1,16 @@
+
+//control signals for Hack ALU
+CHIP contALU
+{
+    IN instruction[16];
+    OUT c[6];
+
+	PARTS:
+		
+		Or(a = instruction[11], out = c[5]);
+		Or(a = instruction[10], out = c[4]);
+		Or(a = instruction[9], out = c[3]);
+		Or(a = instruction[8], out = c[2]);
+		Or(a = instruction[7], out = c[1]);
+		Or(a = instruction[6], out = c[0]);
+}

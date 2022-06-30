@@ -1,0 +1,80 @@
+//16-bit 2-to-1 multiplexer
+
+CHIP SixteenbitMUX2to1
+{
+	IN x[16] , y[16] , S; 
+ 	OUT out[16];
+
+ 	PARTS:
+	
+	//Finding the complement of select line
+ 	Not(in=S,out=notS);
+	
+	And(a=notS,b=x[0],out=term1); //term1 stores x[0] when S is not active
+	And(a=S,b=y[0],out=term2); //term2 stores y[0] when S is active
+	
+	//Similarly all terms are calculated for the remaining bits.
+	And(a=notS,b=x[1],out=term3);
+	And(a=S,b=y[1],out=term4);
+	
+	And(a=notS,b=x[2],out=term5);
+	And(a=S,b=y[2],out=term6);
+	
+	And(a=notS,b=x[3],out=term7);
+	And(a=S,b=y[3],out=term8);
+	
+	And(a=notS,b=x[4],out=term9);
+	And(a=S,b=y[4],out=term10);
+	
+	And(a=notS,b=x[5],out=term11);
+	And(a=S,b=y[5],out=term12);
+	
+	And(a=notS,b=x[6],out=term13);
+	And(a=S,b=y[6],out=term14);
+	
+	And(a=notS,b=x[7],out=term15);
+	And(a=S,b=y[7],out=term16);
+	
+	And(a=notS,b=x[8],out=term17);
+	And(a=S,b=y[8],out=term18);
+	
+	And(a=notS,b=x[9],out=term19);
+	And(a=S,b=y[9],out=term20);
+	
+	And(a=notS,b=x[10],out=term21);
+	And(a=S,b=y[10],out=term22);
+	
+	And(a=notS,b=x[11],out=term23);
+	And(a=S,b=y[11],out=term24);
+	
+	And(a=notS,b=x[12],out=term25);
+	And(a=S,b=y[12],out=term26);
+	
+	And(a=notS,b=x[13],out=term27);
+	And(a=S,b=y[13],out=term28);
+	
+	And(a=notS,b=x[14],out=term29);
+	And(a=S,b=y[14],out=term30);
+	
+	And(a=notS,b=x[15],out=term31);
+	And(a=S,b=y[15],out=term32);
+	
+	
+	//Final resultant value at each output bit is now calculated
+	Or(a = term1 , b = term2, out = out[0]);
+	Or(a = term3 , b = term4, out = out[1]);
+	Or(a = term5 , b = term6, out = out[2]);
+	Or(a = term7 , b = term8, out = out[3]);
+	Or(a = term9 , b = term10, out = out[4]);
+	Or(a = term11 , b = term12, out = out[5]);
+	Or(a = term13 , b = term14, out = out[6]);
+	Or(a = term15 , b = term16, out = out[7]);
+	Or(a = term17 , b = term18, out = out[8]);
+	Or(a = term19 , b = term20, out = out[9]);
+	Or(a = term21 , b = term22, out = out[10]);
+	Or(a = term23 , b = term24, out = out[11]);
+	Or(a = term25 , b = term26, out = out[12]);
+	Or(a = term27 , b = term28, out = out[13]);
+	Or(a = term29 , b = term30, out = out[14]);
+	Or(a = term31 , b = term32, out = out[15]);
+}

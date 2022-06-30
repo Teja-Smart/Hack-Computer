@@ -1,0 +1,44 @@
+
+//HACK CPU
+CHIP HackCPU
+{
+    IN inM[16], instruction[16] , reset;
+    OUT outM[16], writeM, addressM[15], pc[15];
+
+	PARTS:
+		
+		//finding input to b sent to RegisterA and storing it in inA
+	    Not(in = instruction[15], out = sel1);
+		Mux(x = outALU, y = instruction, S = sel1, out = inA);
+
+        //writing into 
+		//gets control input to A
+		contA(instruction = instruction, c = cA);   
+		ARegister(in = inA, load = cA, out = A);
+        
+
+		//writing into D
+		And(a = instruction[15], b = instruction[4], out = cD); // Cinstruction and write to D
+		DRegister(in = outALU, load = cD, out = D);
+        
+		// finind A\M and storing it in AorM
+		And(a = instruction[15], b = instruction[12], out = sel2);
+        Mux(x = A, y = inM, S = sel2, out = AorM);
+        
+		//getting out fom ALU
+		contALU(instruction = instruction, c = cALU);
+		HackALU(X = D, Y = AorM, c = cALU, out = outALU, Zr = Zrout, Ng = Ngout);
+
+        //send A[14.. 0] to adressM
+        Or16(a = false, b = A, out[0..14] = addressM);  
+        Or16(a = false, b = outALU, out = outM);
+
+        // finding writeM
+		And(a = instruction[15], b = instruction[3], out = writeM);
+
+        //Make PCload and PCinc - whether to  load PC with A
+        // findJMP decides to load or inc PC
+        findJMP(Zrout = Zrout, Ngout = Ngout, instruction = instruction, load = load, inc = inc);
+		PC(in = A, inc = inc, load = load, reset = reset, out[0..14] = pc);
+
+}

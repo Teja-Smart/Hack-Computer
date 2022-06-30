@@ -1,0 +1,14 @@
+
+//control signals for A
+
+CHIP contA
+{
+    IN instruction[16];
+    OUT c;
+
+	PARTS:
+		
+		Not(in = instruction[15], out = ni15);
+		And(a = instruction[15], b = instruction[5], out = i15i5);
+		Or(a = ni15, b = i15i5, out = c);
+}

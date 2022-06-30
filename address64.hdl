@@ -1,0 +1,14 @@
+//gets last 6 bits of address
+CHIP address64
+{
+  	IN addressM[15];
+  	OUT address64[6];
+
+	PARTS:
+  		Or(a = false, b = addressM[0], out = address64[0]);
+  		Or(a = false, b = addressM[1], out = address64[1]);
+  		Or(a = false, b = addressM[2], out = address64[2]);
+  		Or(a = false, b = addressM[3], out = address64[3]);
+  		Or(a = false, b = addressM[4], out = address64[4]);
+  		Or(a = false, b = addressM[5], out = address64[5]);
+}
